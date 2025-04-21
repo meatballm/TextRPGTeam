@@ -66,11 +66,12 @@
             public int Health;
             public int Cash = 1500;
         }//플레이어
+        //os
         static class Constants
         {
             public const float sale = 0.85f;//아이템 판매시 배율
         }
-
+         
         internal class Program
         {
             static void Main(string[] args)
