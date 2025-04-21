@@ -12,7 +12,7 @@
             public int Def;
             public bool Equip;
             public int Value;
-            public string Type;
+            public string Type;//착용 부위
             public Item(string name, string description, int att, int def, int value, string type, bool equip = false) : this()
             {
                 Name = name;
@@ -23,7 +23,7 @@
                 Type = type;
                 Equip = equip;
             }
-        }
+        }//아이템
         struct Class()
         {
             public string Name;
@@ -39,7 +39,7 @@
                 Def = de;
                 Health = h;
             }
-        }
+        }//직업
         struct Dungeon()
         {
             public string Name;
@@ -53,34 +53,34 @@
                 Def = def;
                 Money = money;
             }
-        }
+        }//던전
         class Charactor()
         {
             public int Level = 1;
             public string Name;
             public string Class;
             public float Att;
-            public float EqAtt = 0;
+            public float EqAtt = 0;//장비 공격력
             public float Def;
-            public float EqDef = 0;
+            public float EqDef = 0;//장비 방어력
             public int Health;
             public int Cash = 1500;
-        }
+        }//플레이어
         static class Constants
         {
-            public const float sale = 0.85f;
+            public const float sale = 0.85f;//아이템 판매시 배율
         }
 
         internal class Program
         {
             static void Main(string[] args)
             {
-                Charactor hero = new Charactor();
-                Class[] job = [
+                Charactor hero = new Charactor();//플레이어 정보
+                Class[] job = [// 직업
                     new Class("전사", "전사입니다.", 10, 5),
-                new Class("도적", "도적입니다.", 15, 3)
+                    new Class("도적", "도적입니다.", 15, 3)
                     ];
-                List<Item> shop = new List<Item>{
+                List<Item> shop = new List<Item>{// 상점 아이템
                 new Item("수련자갑옷", "수련에 도움을 주는 갑옷입니다.", 0, 5, 1000,"chest"),
                 new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", 0, 9, 2000,"chest"),
                 new Item("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 0, 15, 3500,"chest"),
@@ -88,11 +88,11 @@
                 new Item("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", 5, 0, 1500,"weapon"),
                 new Item("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", 7, 0, 3000,"weapon")
             };
-                List<Item> inventory = new List<Item>{
+                List<Item> inventory = new List<Item>{// 인벤토리 아이템
                 new Item("수류연타", "물의 태세가 극에 달하여 물 흐르듯 3회의 연격을 날린다.", 5, 20, 1500,"weapon"),
                 new Item("암흑강타", "악의 태세가 극에 달하여 강렬한 일격을 날린다.", 25, 5, 1500,"weapon")
             };
-                Dungeon[] crypt = [
+                Dungeon[] crypt = [// 던전 종류
                     new Dungeon("쉬운 던전","방어력 5 이상 권장",5,1000),
                 new Dungeon("일반 던전","방어력 11 이상 권장",11,1700),
                 new Dungeon("어려운 던전","방어력 17 이상 권장",17,2500)
@@ -155,19 +155,19 @@
                         case 3:
                             {
                                 Console.WriteLine("\n" + choice + "번 선택됨!\n\n");
-                                Store(shop, inventory, hero);
+                                Store(shop, inventory, hero);// 상점가기
                                 break;
                             }
                         case 4:
                             {
                                 Console.WriteLine("\n" + choice + "번 선택됨!\n\n");
-                                Dungeon(hero, crypt);
+                                Dungeon(hero, crypt);//던전 가기
                                 break;
                             }
                         case 5:
                             {
                                 Console.WriteLine("\n" + choice + "번 선택됨!\n\n");
-                                Rest(hero);
+                                Rest(hero);//회복 하기
                                 break;
                             }
                         default:
@@ -202,7 +202,7 @@
                         break;
                     }
                 }
-            }
+            }//캐릭터 정보 보기
             public static void Inven(List<Item> Inventory, Charactor hero)
             {
                 int choice;
@@ -222,7 +222,7 @@
                     }
                     if (choice == 2) { Console.Clear(); break; }
                 }
-            }
+            }//인벤토리 보기
             public static void Equip(List<Item> items, Charactor hero)
             {
                 int choice;
@@ -270,7 +270,7 @@
                     else
                     { Console.Clear(); Console.WriteLine("\n잘못된 입력입니다. 다시 선택해 주세요.\n"); }
                 }
-            }
+            }//장착관리
             public static void ShowItem(List<Item> items, bool equip, bool num = false)
             {
                 int i = 0;
@@ -289,7 +289,7 @@
                         Console.Write("방어력 +" + item.Def + " | ");
                     Console.WriteLine(item.Description + "\n");
                 }
-            }
+            }//아이템 리스트 보기
             public static void ShowItem(List<Item> items, List<Item> inven, bool num = false)
             {
                 int i = 0;
@@ -307,7 +307,7 @@
                     Console.Write(item.Description + " | ");
                     Console.WriteLine(inven.Contains(item) ? "구매완료" : (item.Value + "G"));
                 }
-            }
+            }//아이템 리스트 보기(구매 여부 추가)
             public static void ShowItem(List<Item> items, bool num, bool equip, float sale)
             {
                 int i = 0;
@@ -327,7 +327,7 @@
                     Console.Write(item.Description + " | ");
                     Console.WriteLine((int)((float)item.Value * sale) + "G");
                 }
-            }
+            }//아이템 리스트 보기(판매용)
             public static void Store(List<Item> Shop, List<Item> Inventory, Charactor hero)
             {
                 int choice;
@@ -352,7 +352,7 @@
                     }
                     if (choice == 0) break;
                 }
-            }
+            }//상점
             public static void BuyItem(List<Item> Shop, List<Item> Inventory, ref int money)
             {
                 int choice;
@@ -396,7 +396,7 @@
                         Console.WriteLine("\n잘못된 입력입니다. 다시 선택해 주세요.\n");
                     }
                 }
-            }
+            }//아이템 구매
             public static void SellItem(List<Item> Inventory, Charactor hero)
             {
                 int choice;
@@ -429,7 +429,7 @@
                         Console.WriteLine("\n잘못된 입력입니다. 다시 선택해 주세요.\n");
                     }
                 }
-            }
+            }//아이템 판매
             public static void Rest(Charactor hero)
             {
                 int choice;
@@ -473,7 +473,7 @@
                         Console.WriteLine("\n잘못된 입력입니다. 다시 선택해 주세요.\n");
                     }
                 }
-            }
+            }//휴식
             public static void Dungeon(Charactor hero, Dungeon[] crypt)
             {
                 int count = 0;
@@ -549,12 +549,12 @@
                     }
                     else { Console.WriteLine("\n잘못된 입력입니다. 다시 선택해 주세요.\n"); }
                 }
-            }
+            }//던전
             public static void Gameover()
             {
                 //Console.Clear();
                 //pull test
-            }
+            }//게임오버(미사용)
         }
     }
 }
