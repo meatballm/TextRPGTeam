@@ -553,7 +553,9 @@
             public static void Gameover()
             {
                 //Console.Clear();
-                Console.WriteLine("\n으겍 신다꼬\n");
             }
         }
     }
+}
+
+
